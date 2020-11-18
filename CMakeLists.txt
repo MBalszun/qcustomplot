@@ -30,16 +30,29 @@ else()
   set( default_include_example ON)
 endif()
 
+#### Project interface
 option(MBA_QCUSTOM_PLOT_INCLUDE_EXAMPLES "Include QCustomPlot Examples"  ${default_include_example})
 
-project(MBaQCustomPlot)
+project(MBaQCustomPlot LANGUAGES CXX)
 
+#### General compilation settings
 set(CMAKE_AUTOMOC True)
 
+if(MSVC)
+  add_compile_options(/W4)
+else()
+ add_compile_options(-Wall -Wextra)
+endif()
+
+
+####  Create library
 add_library( mba-qcustom_plot
   src/qcustomplot.cpp
   include/qcustomplot/qcustomplot.h
+  include/qcustomplot/utils/supress_common_qt_warnings_start.h
+  include/qcustomplot/utils/supress_common_qt_warnings_stop.h
 )
+
 add_library(MBa::QCustomPlot ALIAS mba-qcustom_plot)
 
 target_include_directories( mba-qcustom_plot
@@ -48,6 +61,7 @@ target_include_directories( mba-qcustom_plot
 		$<INSTALL_INTERFACE:include>
 )
 
+####  link to qt
 if(NOT hasParent)
   find_package(Qt5Widgets REQUIRED)
   find_package(Qt5PrintSupport REQUIRED)
@@ -55,9 +69,7 @@ endif()
 
 target_link_libraries(mba-qcustom_plot PUBLIC Qt5::Core Qt5::Widgets Qt5::PrintSupport)
 
-
 if( MBA_QCUSTOM_PLOT_INCLUDE_EXAMPLES )
-
     add_subdirectory(examples/axis-tags)
     add_subdirectory(examples/interactions)
     add_subdirectory(examples/plots)
