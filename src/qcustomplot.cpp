@@ -28371,15 +28371,15 @@ void QCPItemLine::draw(QCPPainter *painter)
 
   This is a helper function for \ref draw.
 */
-QLineF QCPItemLine::getRectClippedLine(const QCPVector2D &start, const QCPVector2D &end, const QRect &rect) const
+QLineF QCPItemLine::getRectClippedLine(const QCPVector2D &line_start, const QCPVector2D &line_end, const QRect &rect) const
 {
-  bool containsStart = rect.contains(start.x(), start.y());
-  bool containsEnd = rect.contains(end.x(), end.y());
+  bool containsStart = rect.contains(line_start.x(), line_start.y());
+  bool containsEnd = rect.contains(line_end.x(), line_end.y());
   if (containsStart && containsEnd)
-    return QLineF(start.toPointF(), end.toPointF());
+    return QLineF(line_start.toPointF(), line_end.toPointF());
 
-  QCPVector2D base = start;
-  QCPVector2D vec = end-start;
+  QCPVector2D base = line_start;
+  QCPVector2D vec = line_end - line_start;
   double bx, by;
   double gamma, mu;
   QLineF result;
@@ -28433,9 +28433,9 @@ QLineF QCPItemLine::getRectClippedLine(const QCPVector2D &start, const QCPVector
   }
 
   if (containsStart)
-    pointVectors.append(start);
+    pointVectors.append(line_start);
   if (containsEnd)
-    pointVectors.append(end);
+    pointVectors.append(line_end);
 
   // evaluate points:
   if (pointVectors.size() == 2)
@@ -29248,11 +29248,11 @@ double QCPItemEllipse::selectTest(const QPointF &pos, bool onlySelectable, QVari
 
   QPointF p1 = topLeft->pixelPosition();
   QPointF p2 = bottomRight->pixelPosition();
-  QPointF center((p1+p2)/2.0);
+  QPointF center_pos((p1+p2)/2.0);
   double a = qAbs(p1.x()-p2.x())/2.0;
   double b = qAbs(p1.y()-p2.y())/2.0;
-  double x = pos.x()-center.x();
-  double y = pos.y()-center.y();
+  double x = pos.x()-center_pos.x();
+  double y = pos.y()-center_pos.y();
 
   // distance to border:
   double c = 1.0/qSqrt(x*x/(a*a)+y*y/(b*b));
@@ -29559,18 +29559,18 @@ QRect QCPItemPixmap::getFinalRect(bool *flippedHorz, bool *flippedVert) const
   if (mScaled)
   {
     QSize newSize = QSize(p2.x()-p1.x(), p2.y()-p1.y());
-    QPoint topLeft = p1;
+    QPoint ltopLeft = p1;
     if (newSize.width() < 0)
     {
       flipHorz = true;
       newSize.rwidth() *= -1;
-      topLeft.setX(p2.x());
+      ltopLeft.setX(p2.x());
     }
     if (newSize.height() < 0)
     {
       flipVert = true;
       newSize.rheight() *= -1;
-      topLeft.setY(p2.y());
+      ltopLeft.setY(p2.y());
     }
     QSize scaledSize = mPixmap.size();
 #ifdef QCP_DEVICEPIXELRATIO_SUPPORTED
@@ -29579,7 +29579,7 @@ QRect QCPItemPixmap::getFinalRect(bool *flippedHorz, bool *flippedVert) const
 #else
     scaledSize.scale(newSize, mAspectRatioMode);
 #endif
-    result = QRect(topLeft, scaledSize);
+    result = QRect(ltopLeft, scaledSize);
   } else
   {
 #ifdef QCP_DEVICEPIXELRATIO_SUPPORTED
