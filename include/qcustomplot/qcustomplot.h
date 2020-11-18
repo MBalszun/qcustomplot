@@ -48,6 +48,8 @@
 #  endif
 #endif
 
+#include "./utils/supress_common_qt_warnings_start.h"
+
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtCore/QSharedPointer>
@@ -91,6 +93,8 @@
 #  include <QtWidgets/QWidget>
 #  include <QtPrintSupport/QtPrintSupport>
 #endif
+
+#include "./utils/supress_common_qt_warnings_stop.h"
 
 class QCPPainter;
 class QCustomPlot;

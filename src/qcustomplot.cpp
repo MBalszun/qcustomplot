@@ -26,7 +26,9 @@
 
 #include <qcustomplot/qcustomplot.h>
 
+#include <qcustomplot/utils/supress_common_qt_warnings_start.h>
 #include <QMultiMap>
+#include <qcustomplot/utils/supress_common_qt_warnings_stop.h>
 
 
 /* including file 'src/vector2d.cpp', size 7340                              */
