@@ -1,0 +1,1 @@
+This is a fork of qcustomplot from https://www.qcustomplot.com/index.php/introduction
