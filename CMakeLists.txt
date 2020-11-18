@@ -19,7 +19,18 @@
 #****************************************************************************
 
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13...3.18)
+
+get_directory_property( parentdir PARENT_DIRECTORY)
+if(parentdir)
+  set( hasParent True )
+  set( default_include_example OFF)
+else()
+  set( hasParent False )
+  set( default_include_example ON)
+endif()
+
+option(MBA_QCUSTOM_PLOT_INCLUDE_EXAMPLES "Include QCustomPlot Examples"  ${default_include_example})
 
 project(MBaQCustomPlot)
 
@@ -37,10 +48,19 @@ target_include_directories( mba-qcustom_plot
 		$<INSTALL_INTERFACE:include>
 )
 
-get_directory_property(hasParent PARENT_DIRECTORY)
 if(NOT hasParent)
   find_package(Qt5Widgets REQUIRED)
   find_package(Qt5PrintSupport REQUIRED)
 endif()
 
 target_link_libraries(mba-qcustom_plot PUBLIC Qt5::Core Qt5::Widgets Qt5::PrintSupport)
+
+
+if( MBA_QCUSTOM_PLOT_INCLUDE_EXAMPLES )
+
+    add_subdirectory(examples/axis-tags)
+    add_subdirectory(examples/interactions)
+    add_subdirectory(examples/plots)
+    add_subdirectory(examples/scrollbar-axis-range-control)
+    add_subdirectory(examples/text-document-integration)
+endif()

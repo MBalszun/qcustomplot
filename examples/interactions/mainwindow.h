@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QInputDialog>
-#include "../../qcustomplot.h"
+#include <qcustomplot/qcustomplot.h>
 
 namespace Ui {
 class MainWindow;
@@ -12,11 +12,11 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
-  
+
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-  
+
 private slots:
   void titleDoubleClick(QMouseEvent *event);
   void axisLabelDoubleClick(QCPAxis* axis, QCPAxis::SelectablePart part);
@@ -30,7 +30,7 @@ private slots:
   void contextMenuRequest(QPoint pos);
   void moveLegend();
   void graphClicked(QCPAbstractPlottable *plottable, int dataIndex);
-  
+
 private:
   Ui::MainWindow *ui;
 };
