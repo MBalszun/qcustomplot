@@ -23,7 +23,12 @@ cmake_minimum_required(VERSION 3.10)
 
 project(MBaQCustomPlot)
 
-add_library(mba-qcustom_plot qcustomplot.cpp)
+set(CMAKE_AUTOMOC True)
+
+add_library( mba-qcustom_plot
+  qcustomplot.cpp
+  include/qcustomplot/qcustomplot.h
+)
 add_library(MBa::QCustomPlot ALIAS mba-qcustom_plot)
 
 target_include_directories( mba-qcustom_plot
