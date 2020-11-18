@@ -37,7 +37,7 @@ project(MBaQCustomPlot)
 set(CMAKE_AUTOMOC True)
 
 add_library( mba-qcustom_plot
-  qcustomplot.cpp
+  src/qcustomplot.cpp
   include/qcustomplot/qcustomplot.h
 )
 add_library(MBa::QCustomPlot ALIAS mba-qcustom_plot)
