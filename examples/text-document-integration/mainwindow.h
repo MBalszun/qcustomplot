@@ -26,10 +26,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <qcustomplot/utils/supress_common_qt_warnings_start.h>
+
 #include <QMainWindow>
 #include <QTextDocument>
 #include <QFileDialog>
 #include "qcpdocumentobject.h"
+
+#include <qcustomplot/utils/supress_common_qt_warnings_stop.h>
 
 namespace Ui {
 class MainWindow;
@@ -38,17 +42,17 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
-  
+
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-  
+
   void setupPlot();
-  
+
 private slots:
   void on_actionInsert_Plot_triggered();
   void on_actionSave_Document_triggered();
-  
+
 private:
   Ui::MainWindow *ui;
 };

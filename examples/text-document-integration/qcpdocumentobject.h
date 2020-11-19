@@ -26,12 +26,16 @@
 #ifndef QCPDOCUMENTOBJECT_H
 #define QCPDOCUMENTOBJECT_H
 
+#include <qcustomplot/utils/supress_common_qt_warnings_start.h>
+
 #include <QObject>
 #include <QTextObjectInterface>
 #include <QPicture>
 #include <QVariant>
 #include <QPainter>
 #include <qcustomplot/qcustomplot.h>
+
+#include <qcustomplot/utils/supress_common_qt_warnings_stop.h>
 
 class QCPDocumentObject : public QObject, public QTextObjectInterface
 {

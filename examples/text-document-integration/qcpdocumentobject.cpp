@@ -50,7 +50,7 @@ void QCPDocumentObject::drawObject(QPainter *painter, const QRectF &rect, QTextD
   QPicture pic = qvariant_cast<QPicture>(format.property(PicturePropertyId));
   if (pic.isNull())
     return;
-  
+
   QSize finalSize = pic.boundingRect().size();
   finalSize.scale(rect.size().toSize(), Qt::KeepAspectRatio);
   double scaleFactor = finalSize.width()/(double)pic.boundingRect().size().width();
@@ -68,7 +68,7 @@ QTextCharFormat QCPDocumentObject::generatePlotFormat(QCustomPlot *plot, int wid
   qcpPainter.begin(&picture);
   plot->toPainter(&qcpPainter, width, height);
   qcpPainter.end();
-  
+
   QTextCharFormat result;
   result.setObjectType(QCPDocumentObject::PlotTextFormat);
   result.setProperty(QCPDocumentObject::PicturePropertyId, QVariant::fromValue(picture));

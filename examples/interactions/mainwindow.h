@@ -1,9 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <qcustomplot/utils/supress_common_qt_warnings_start.h>
+
 #include <QMainWindow>
 #include <QInputDialog>
 #include <qcustomplot/qcustomplot.h>
+
+#include <qcustomplot/utils/supress_common_qt_warnings_stop.h>
 
 namespace Ui {
 class MainWindow;

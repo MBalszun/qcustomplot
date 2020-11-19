@@ -33,10 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
   connect(ui->cbUseCurrentSize, SIGNAL(toggled(bool)), ui->sbWidth, SLOT(setDisabled(bool)));
   connect(ui->cbUseCurrentSize, SIGNAL(toggled(bool)), ui->sbHeight, SLOT(setDisabled(bool)));
-  
+
   ui->plot->axisRect()->setMinimumSize(300, 180);
   setupPlot();
-  
+
   // register the plot document object (only needed once, no matter how many plots will be in the QTextDocument):
   QCPDocumentObject *plotObjectHandler = new QCPDocumentObject(this);
   ui->textEdit->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
@@ -88,14 +88,14 @@ void MainWindow::setupPlot()
 void MainWindow::on_actionInsert_Plot_triggered()
 {
   QTextCursor cursor = ui->textEdit->textCursor();
-  
+
   // insert the current plot at the cursor position. QCPDocumentObject::generatePlotFormat creates a
   // vectorized snapshot of the passed plot (with the specified width and height) which gets inserted
   // into the text document.
-  double width = ui->cbUseCurrentSize->isChecked() ? 0 : ui->sbWidth->value();
-  double height = ui->cbUseCurrentSize->isChecked() ? 0 : ui->sbHeight->value();
+  auto width = ui->cbUseCurrentSize->isChecked() ? 0 : ui->sbWidth->value();
+  auto height = ui->cbUseCurrentSize->isChecked() ? 0 : ui->sbHeight->value();
   cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(ui->plot, width, height));
-  
+
   ui->textEdit->setTextCursor(cursor);
 }
 
